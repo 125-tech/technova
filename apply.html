@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Recruitment 2026 | Multi-Step Application | Electronics Club</title>
+  <meta name="description" content="Apply for the core team of Electronics Club 2026. Multi-step application form with live validation, draft saving, and instant confirmation.">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <nav class="navbar" style="position: relative;">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-title">
+          <span class="main-name">ELECTRONICS CLUB</span>
+          <span class="sub-name">Recruitment Portal 2026</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn-nav-outline">
+          &larr; Back to TECHNOVA 2026
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="apply-container">
+    <a href="index.html" class="back-to-home-link">
+      &larr; Return to TECHNOVA 2026 Fest Site
+    </a>
+
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 35px;">
+      <span class="section-tag">Recruitment 2026</span>
+      <h1 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px;">
+        Join the <span style="background: linear-gradient(90deg, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Electronics Club</span>
+      </h1>
+      <p style="color: var(--text-muted); max-width: 620px; margin: 0 auto; font-size: 0.95rem;">
+        We build combat robots, design custom PCB hardware, develop firmware, and organize campus-wide technical fests. Complete this 4-step form to apply.
+      </p>
+    </div>
+
+    <!-- Draft Found Notification Banner -->
+    <div class="draft-banner" id="draftRestoreBanner">
+      <div>
+        <strong>💾 Saved Draft Detected!</strong>
+        <div style="font-size: 0.8rem; opacity: 0.9;">Last saved on <span id="draftTimestamp">recently</span>.</div>
+      </div>
+      <div class="draft-btn-group">
+        <button type="button" class="btn-resume-draft" onclick="restoreDraft()">Resume Draft</button>
+        <button type="button" class="btn-discard-draft" onclick="discardDraft()">Discard</button>
+      </div>
+    </div>
+
+    <!-- Stepper Progress Indicator -->
+    <div class="stepper-progress-wrapper">
+      <div class="stepper-bar-track">
+        <div class="stepper-bar-fill" id="applyProgressBar"></div>
+      </div>
+      <div class="stepper-nodes">
+        <div class="step-node active" id="stepNode1" onclick="goToStep(1)">
+          <div class="step-circle">1</div>
+          <span class="step-title">Personal</span>
+        </div>
+        <div class="step-node" id="stepNode2" onclick="goToStep(2)">
+          <div class="step-circle">2</div>
+          <span class="step-title">Skills</span>
+        </div>
+        <div class="step-node" id="stepNode3" onclick="goToStep(3)">
+          <div class="step-circle">3</div>
+          <span class="step-title">Motivation</span>
+        </div>
+        <div class="step-node" id="stepNode4" onclick="goToStep(4)">
+          <div class="step-circle">4</div>
+          <span class="step-title">Review</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Multi-Step Form Container -->
+    <div id="formContainer">
+      <form id="multiStepRecruitmentForm" novalidate>
+
+        <!-- STEP 1: Personal Details -->
+        <div class="step-card" id="stepCard1">
+          <div class="step-card-header">
+            <h3>Step 1: Personal Details</h3>
+            <p>Tell us who you are and how we can reach you.</p>
+          </div>
+
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="form-label" for="appFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="appFullName" class="form-input" placeholder="e.g. Yash Soni" required>
+              <div class="form-error" id="appFullNameError"></div>
+            </div>
+
+            <!-- Roll Number -->
+            <div class="form-group">
+              <label class="form-label" for="appRollNo">College Roll / Reg No <span class="req">*</span></label>
+              <input type="text" id="appRollNo" class="form-input" placeholder="e.g. 24ECE104" required>
+              <div class="form-error" id="appRollNoError"></div>
+            </div>
+
+            <!-- College Email -->
+            <div class="form-group">
+              <label class="form-label" for="appEmail">College Email Address <span class="req">*</span></label>
+              <input type="email" id="appEmail" class="form-input" placeholder="e.g. yash@college.edu" required>
+              <div class="form-error" id="appEmailError"></div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+              <label class="form-label" for="appPhone">Mobile Number (WhatsApp) <span class="req">*</span></label>
+              <input type="tel" id="appPhone" class="form-input" placeholder="10-digit mobile number" required>
+              <div class="form-error" id="appPhoneError"></div>
+            </div>
+
+            <!-- Branch & Year -->
+            <div class="form-group">
+              <label class="form-label" for="appBranch">Department / Branch <span class="req">*</span></label>
+              <select id="appBranch" class="form-select" required>
+                <option value="">Select Branch</option>
+                <option value="Electronics & Communication (ECE)">Electronics & Communication (ECE)</option>
+                <option value="Electrical & Electronics (EEE)">Electrical & Electronics (EEE)</option>
+                <option value="Computer Science & Engg (CSE)">Computer Science & Engg (CSE)</option>
+                <option value="Information Technology (IT)">Information Technology (IT)</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Other Department">Other Department</option>
+              </select>
+              <div class="form-error" id="appBranchError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="appYear">Year of Study <span class="req">*</span></label>
+              <select id="appYear" class="form-select" required>
+                <option value="">Select Year</option>
+                <option value="1st Year">1st Year (Freshman)</option>
+                <option value="2nd Year">2nd Year (Sophomore)</option>
+                <option value="3rd Year">3rd Year (Junior)</option>
+              </select>
+              <div class="form-error" id="appYearError"></div>
+            </div>
+
+            <!-- CGPA -->
+            <div class="form-group full-width">
+              <label class="form-label" for="appCgpa">Current CGPA / Class 12th Percentage (Optional)</label>
+              <input type="number" step="0.01" min="0" max="10" id="appCgpa" class="form-input" placeholder="e.g. 8.75">
+              <div class="form-error" id="appCgpaError"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Skills & Interests -->
+        <div class="step-card" id="stepCard2" style="display: none;">
+          <div class="step-card-header">
+            <h3>Step 2: Skills & Domain Interests</h3>
+            <p>Select your technical inclinations. Beginners are highly encouraged!</p>
+          </div>
+
+          <div class="form-group full-width" style="margin-bottom: 22px;">
+            <label class="form-label" for="appDomain">Primary Domain Interest <span class="req">*</span></label>
+            <select id="appDomain" class="form-select" required>
+              <option value="">Select Primary Wing</option>
+              <option value="Robotics & Combat Bots">Robotics & Combat Bots</option>
+              <option value="Embedded Systems & IoT">Embedded Systems & IoT</option>
+              <option value="Circuit Design & VLSI">Circuit Design & VLSI</option>
+              <option value="Software & Firmware Development">Software & Firmware Development</option>
+              <option value="Web Development & Tech Lead">Web Development & Tech Lead</option>
+              <option value="Media, Design & Public Relations">Media, Design & Public Relations</option>
+            </select>
+            <div class="form-error" id="appDomainError"></div>
+          </div>
+
+          <div class="form-group full-width" style="margin-bottom: 22px;">
+            <label class="form-label">
+              Technical Skills & Programming Languages <span class="req">*</span>
+            </label>
+            <div class="checkbox-grid">
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="C / C++">
+                <span>C / C++</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="Python">
+                <span>Python</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="Arduino / ESP32">
+                <span>Arduino / ESP32</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="KiCad / PCB Design">
+                <span>KiCad / PCB Design</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="ROS / Robotics">
+                <span>ROS / Robotics</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="HTML, CSS & JS">
+                <span>HTML, CSS & JS</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="MATLAB / Simulink">
+                <span>MATLAB / Simulink</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="skills" value="Computer Vision / OpenCV">
+                <span>Computer Vision / OpenCV</span>
+              </label>
+            </div>
+            <div class="form-error" id="appSkillsError"></div>
+          </div>
+
+          <div class="form-group full-width" style="margin-bottom: 22px;">
+            <label class="form-label">Hardware & Lab Equipment Familiarity (Select all that apply)</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="hardware" value="Digital Storage Oscilloscope (DSO)">
+                <span>Oscilloscope (DSO)</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="hardware" value="Breadboarding & Soldering">
+                <span>Breadboard & Soldering</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="hardware" value="Digital Multimeter">
+                <span>Digital Multimeter</span>
+              </label>
+              <label class="checkbox-label-card">
+                <input type="checkbox" name="hardware" value="3D Printing & CAD">
+                <span>3D Printing & CAD</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label class="form-label" for="appPortfolio">GitHub Profile / LinkedIn / Portfolio URL</label>
+            <input type="url" id="appPortfolio" class="form-input" placeholder="https://github.com/yourusername">
+          </div>
+        </div>
+
+        <!-- STEP 3: Experience & Motivation -->
+        <div class="step-card" id="stepCard3" style="display: none;">
+          <div class="step-card-header">
+            <h3>Step 3: Experience & Motivation</h3>
+            <p>Help us understand what drives you and how you wish to contribute.</p>
+          </div>
+
+          <div class="form-group full-width" style="margin-bottom: 20px;">
+            <label class="form-label" for="appMotivation">
+              Why do you want to join the Electronics Club? <span class="req">*</span>
+            </label>
+            <textarea id="appMotivation" class="form-input" rows="4" placeholder="Describe your passion for electronics, what you hope to learn, and what projects you want to build..." required></textarea>
+            <div class="form-error" id="appMotivationError"></div>
+          </div>
+
+          <div class="form-group full-width" style="margin-bottom: 20px;">
+            <label class="form-label" for="appExperience">
+              Prior Experience, Projects, or Science Fairs (If any)
+            </label>
+            <textarea id="appExperience" class="form-input" rows="3" placeholder="Mention any mini-projects, Arduino setups, hobby tinkering, or school exhibitions you've worked on..."></textarea>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="appHours">Weekly Time Commitment <span class="req">*</span></label>
+              <select id="appHours" class="form-select" required>
+                <option value="">Select Hours</option>
+                <option value="4 - 6 hours / week">4 - 6 hours / week</option>
+                <option value="6 - 10 hours / week">6 - 10 hours / week</option>
+                <option value="10+ hours / week (Highly Active)">10+ hours / week (Highly Active)</option>
+              </select>
+              <div class="form-error" id="appHoursError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="appLeadership">Interest in Sub-Team Coordinator Role?</label>
+              <select id="appLeadership" class="form-select">
+                <option value="Core Member">Core Member (Hands-on Technical)</option>
+                <option value="Sub-Team Lead / Coordinator">Sub-Team Lead / Coordinator</option>
+                <option value="Event Organizer">Event & PR Organizer</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Review Screen -->
+        <div class="step-card" id="stepCard4" style="display: none;">
+          <div class="step-card-header">
+            <h3>Step 4: Review Your Application</h3>
+            <p>Please double-check all information. Click "Edit" on any section to make updates.</p>
+          </div>
+
+          <div id="reviewContentArea">
+            <!-- Populated dynamically via js/apply.js -->
+          </div>
+        </div>
+
+        <!-- Form Navigation Footer -->
+        <div class="step-nav-footer">
+          <div>
+            <button type="button" class="btn-step-prev" id="btnApplyPrev" onclick="prevStep()">
+              &larr; Previous Step
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <button type="button" class="btn-save-draft" onclick="saveDraft()">
+              💾 Save Draft
+            </button>
+            <button type="button" class="btn-step-next" id="btnApplyNext" onclick="nextStep()">
+              Next Step &rarr;
+            </button>
+            <button type="submit" class="btn-primary-lg" id="btnApplySubmit" style="display: none; padding: 12px 32px;">
+              Submit Application 🚀
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Final Submission Success Screen -->
+    <div class="apply-success-box" id="applySuccessScreen" style="display: none;">
+      <div style="width: 70px; height: 70px; background: rgba(16, 185, 129, 0.15); border: 2px solid var(--accent-emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 2.2rem; color: var(--accent-emerald);">
+        ✓
+      </div>
+      <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Application Submitted!</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+        Thank you <strong id="successApplicantName" style="color: #fff;">Candidate</strong>! Your application for the <span id="successDomain" style="color: var(--accent-cyan); font-weight: 600;">Domain</span> wing has been recorded.
+      </p>
+
+      <div>
+        <span style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase;">Your Application Number</span>
+        <div><span class="app-id-pill" id="successAppId">EC-REC-2026-XXXX</span></div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Timestamp: <span id="successTimestamp">-</span></div>
+      </div>
+
+      <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px; max-width: 380px; margin-left: auto; margin-right: auto;">
+        <button type="button" class="btn-card-register" style="padding: 12px;" onclick="downloadApplicationJSON()">
+          📥 Download Application (JSON)
+        </button>
+        <button type="button" class="btn-card-details" style="padding: 12px;" onclick="printApplicationReceipt()">
+          🖨️ Print Application / Save as PDF
+        </button>
+        <a href="index.html" class="btn-step-prev" style="justify-content: center; margin-top: 8px;">
+          &larr; Return to TECHNOVA 2026 Website
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="applyToastContainer"></div>
+
+  <!-- JavaScript -->
+  <script src="js/apply.js"></script>
+</body>
+</html>
